@@ -22,7 +22,6 @@
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
-import javax.swing.border.EtchedBorder;
 
 @SuppressWarnings("serial")
 public class GUI extends JFrame {
@@ -31,10 +30,15 @@ public class GUI extends JFrame {
 	private JPanel panel;
 	private GridBagConstraints constraints;
 	private JTextArea history;
-	private JTextArea display;
+	private JTextField display;
 	private ArrayList<JButton> buttons;
+	private Font textFont;
+	private Font buttonFont;
 	
 	public GUI() {
+		this.textFont = new Font("Helvetica", Font.BOLD, 32);
+		this.buttonFont = new Font("Helvetica", Font.BOLD, 18);
+		
 		this.window = new JFrame();
 		
 		this.panel = new JPanel();
@@ -43,10 +47,16 @@ public class GUI extends JFrame {
 		this.history.setEditable(false);
 		this.history.setBackground(Color.decode("#33353a"));
 		this.history.setForeground(Color.white);
+		this.history.setBorder(BorderFactory.createRaisedBevelBorder());
+		this.history.setFont(this.textFont);
 		
-		this.display = new JTextArea();
+		this.display = new JTextField();
+		this.display.setEditable(false);
 		this.display.setBackground(Color.decode("#3f4349"));
 		this.display.setForeground(Color.white);
+		this.display.setBorder(BorderFactory.createRaisedBevelBorder());
+		this.display.setHorizontalAlignment(JTextField.TRAILING);
+		this.display.setFont(this.textFont);
 		
 	    this.panel.setLayout(new GridBagLayout());
 	    this.panel.setBorder(BorderFactory.createEmptyBorder());
@@ -74,6 +84,7 @@ public class GUI extends JFrame {
 	    for (int i = 0; i < 20; i++) {
 	    	JButton buttonToAdd = new JButton();
 	    	buttonToAdd.setForeground(Color.white);
+	    	buttonToAdd.setFont(this.buttonFont);
 	    	switch (i) {
 	    	case 0:
 	    		buttonToAdd.setText("CE");
@@ -215,13 +226,10 @@ public class GUI extends JFrame {
 		    this.panel.add(this.buttons.get(i), this.constraints);
 	    }
 	    
-	    this.window.setBounds(0, 0, 800, 800);
-	    //this.window.setSize(1000, 1000);
-	    
+	    this.window.setBounds(250, 250, 800, 800);
 	    this.window.add(panel, BorderLayout.CENTER);
 	    this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.window.setTitle("Calculator");
-	    //this.window.pack();
 	    this.window.setVisible(true);
 	}
 }
