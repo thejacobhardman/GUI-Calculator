@@ -21,7 +21,10 @@
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.sound.sampled.*;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
@@ -37,11 +40,31 @@ public class GUI extends JFrame implements ActionListener {
 	private Font displayFont;
 	private Font historyFont;
 	private Font buttonFont;
+	private File beep;
+	private File boop;
+	private File errorSound;
+	private Clip beepClip;
+	private Clip boopClip;
+	private Clip errorClip;
+	private AudioInputStream audioStream;
 	
-	public GUI() {
+	public GUI() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		this.displayFont = new Font("Helvetica", Font.BOLD, 32);
 		this.historyFont = new Font("Helvetica", Font.BOLD, 24);
 		this.buttonFont = new Font("Helvetica", Font.BOLD, 18);
+		
+		this.beep = new File("Robot_blip-Marianne_Gagnon.wav");
+		this.boop = new File("Robot_blip_2-Marianne_Gagnon.wav");
+		this.errorSound = new File("A-Tone.wav");
+		
+		this.audioStream = AudioSystem.getAudioInputStream(beep);
+		this.beepClip = AudioSystem.getClip();
+		
+		this.audioStream = AudioSystem.getAudioInputStream(boop);
+		this.boopClip = AudioSystem.getClip();
+		
+		this.audioStream = AudioSystem.getAudioInputStream(errorSound);
+		this.errorClip = AudioSystem.getClip();
 		
 		this.window = new JFrame();
 		
@@ -257,6 +280,7 @@ public class GUI extends JFrame implements ActionListener {
 			}
 		} else if (e.getSource() == this.buttons.get(3)) {
 			this.display.setText(this.display.getText() + "/");
+			this.beepClip.start();
 		} else if (e.getSource() == this.buttons.get(4)) {
 			this.display.setText(this.display.getText() + "7");
 		} else if (e.getSource() == this.buttons.get(5)) {
