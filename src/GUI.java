@@ -20,11 +20,12 @@
 **********************************************************************/
 
 import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
-public class GUI extends JFrame {
+public class GUI extends JFrame implements ActionListener {
 	
 	private JFrame window;
 	private JPanel panel;
@@ -48,6 +49,8 @@ public class GUI extends JFrame {
 		this.history.setBackground(Color.decode("#33353a"));
 		this.history.setForeground(Color.white);
 		this.history.setBorder(BorderFactory.createRaisedBevelBorder());
+		this.history.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		this.history.setLineWrap(true);
 		this.history.setFont(this.textFont);
 		
 		this.display = new JTextField();
@@ -85,6 +88,7 @@ public class GUI extends JFrame {
 	    	JButton buttonToAdd = new JButton();
 	    	buttonToAdd.setForeground(Color.white);
 	    	buttonToAdd.setFont(this.buttonFont);
+	    	buttonToAdd.addActionListener(this);
 	    	switch (i) {
 	    	case 0:
 	    		buttonToAdd.setText("CE");
@@ -231,5 +235,52 @@ public class GUI extends JFrame {
 	    this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.window.setTitle("Calculator");
 	    this.window.setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == this.buttons.get(0)) {
+			this.display.setText("");
+			this.history.setText("");
+		} else if (e.getSource() == this.buttons.get(1)) {
+			this.display.setText("");
+		} else if (e.getSource() == this.buttons.get(2)) {
+			this.display.setText(this.display.getText().substring(0, this.display.getText().length() - 1));
+		} else if (e.getSource() == this.buttons.get(3)) {
+			this.display.setText(this.display.getText() + "/");
+		} else if (e.getSource() == this.buttons.get(4)) {
+			this.display.setText(this.display.getText() + "7");
+		} else if (e.getSource() == this.buttons.get(5)) {
+			this.display.setText(this.display.getText() + "8");
+		} else if (e.getSource() == this.buttons.get(6)) {
+			this.display.setText(this.display.getText() + "9");
+		} else if (e.getSource() == this.buttons.get(7)) {
+			this.display.setText(this.display.getText() + "*");
+		} else if (e.getSource() == this.buttons.get(8)) {
+			this.display.setText(this.display.getText() + "4");
+		} else if (e.getSource() == this.buttons.get(9)) {
+			this.display.setText(this.display.getText() + "5");
+		} else if (e.getSource() == this.buttons.get(10)) {
+			this.display.setText(this.display.getText() + "6");
+		} else if (e.getSource() == this.buttons.get(11)) {
+			this.display.setText(this.display.getText() + "-");
+		} else if (e.getSource() == this.buttons.get(12)) {
+			this.display.setText(this.display.getText() + "1");
+		} else if (e.getSource() == this.buttons.get(13)) {
+			this.display.setText(this.display.getText() + "2");
+		} else if (e.getSource() == this.buttons.get(14)) {
+			this.display.setText(this.display.getText() + "3");
+		} else if (e.getSource() == this.buttons.get(15)) {
+			this.display.setText(this.display.getText() + "+");
+		} else if (e.getSource() == this.buttons.get(16)) {
+			this.display.setText(this.display.getText() + "\u00B1");
+		} else if (e.getSource() == this.buttons.get(17)) {
+			this.display.setText(this.display.getText() + "0");
+		} else if (e.getSource() == this.buttons.get(18)) {
+			this.display.setText(this.display.getText() + ".");
+		} else if (e.getSource() == this.buttons.get(19)) {
+			this.history.setText(this.history.getText() + "\n" + this.display.getText());
+			this.display.setText("");
+		}
 	}
 }
