@@ -30,14 +30,17 @@ public class GUI extends JFrame implements ActionListener {
 	private JFrame window;
 	private JPanel panel;
 	private GridBagConstraints constraints;
+	private JScrollPane scrollPane;
 	private JTextArea history;
 	private JTextField display;
 	private ArrayList<JButton> buttons;
-	private Font textFont;
+	private Font displayFont;
+	private Font historyFont;
 	private Font buttonFont;
 	
 	public GUI() {
-		this.textFont = new Font("Helvetica", Font.BOLD, 32);
+		this.displayFont = new Font("Helvetica", Font.BOLD, 32);
+		this.historyFont = new Font("Helvetica", Font.BOLD, 24);
 		this.buttonFont = new Font("Helvetica", Font.BOLD, 18);
 		
 		this.window = new JFrame();
@@ -50,8 +53,8 @@ public class GUI extends JFrame implements ActionListener {
 		this.history.setForeground(Color.white);
 		this.history.setBorder(BorderFactory.createRaisedBevelBorder());
 		this.history.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		this.history.setLineWrap(true);
-		this.history.setFont(this.textFont);
+		//this.history.setLineWrap(true);
+		this.history.setFont(historyFont);
 		
 		this.display = new JTextField();
 		this.display.setEditable(false);
@@ -59,7 +62,9 @@ public class GUI extends JFrame implements ActionListener {
 		this.display.setForeground(Color.white);
 		this.display.setBorder(BorderFactory.createRaisedBevelBorder());
 		this.display.setHorizontalAlignment(JTextField.TRAILING);
-		this.display.setFont(this.textFont);
+		this.display.setFont(this.displayFont);
+		
+		this.scrollPane = new JScrollPane(this.history);
 		
 	    this.panel.setLayout(new GridBagLayout());
 	    this.panel.setBorder(BorderFactory.createEmptyBorder());
@@ -71,7 +76,7 @@ public class GUI extends JFrame implements ActionListener {
 	    this.constraints.gridheight = 1;
 	    this.constraints.weightx = 0.5;
 	    this.constraints.weighty = 0.3;
-	    this.panel.add(display, this.constraints);
+	    this.panel.add(this.display, this.constraints);
 	    
 	    this.constraints.fill = GridBagConstraints.BOTH;
 	    this.constraints.gridx = 5;
@@ -80,7 +85,7 @@ public class GUI extends JFrame implements ActionListener {
 	    this.constraints.gridwidth = 2;
 	    this.constraints.weightx = 1.0;
 	    this.constraints.weighty = 1.0;
-	    this.panel.add(history, this.constraints);
+	    this.panel.add(this.scrollPane, this.constraints);
 	    
 	    this.buttons = new ArrayList<JButton>();
 	    
@@ -245,7 +250,11 @@ public class GUI extends JFrame implements ActionListener {
 		} else if (e.getSource() == this.buttons.get(1)) {
 			this.display.setText("");
 		} else if (e.getSource() == this.buttons.get(2)) {
-			this.display.setText(this.display.getText().substring(0, this.display.getText().length() - 1));
+			if (this.display.getText().equals("")) {
+				//play error sound here
+			} else {
+				this.display.setText(this.display.getText().substring(0, this.display.getText().length() - 1));
+			}
 		} else if (e.getSource() == this.buttons.get(3)) {
 			this.display.setText(this.display.getText() + "/");
 		} else if (e.getSource() == this.buttons.get(4)) {
