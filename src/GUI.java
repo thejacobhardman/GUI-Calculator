@@ -21,8 +21,8 @@
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -43,9 +43,7 @@ public class GUI extends JFrame implements ActionListener {
 	private File beep;
 	private File boop;
 	private File errorSound;
-	private Clip beepClip;
-	private Clip boopClip;
-	private Clip errorClip;
+	private Clip clip;
 	private AudioInputStream audioStream;
 	
 	public GUI() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
@@ -56,15 +54,6 @@ public class GUI extends JFrame implements ActionListener {
 		this.beep = new File("Robot_blip-Marianne_Gagnon.wav");
 		this.boop = new File("Robot_blip_2-Marianne_Gagnon.wav");
 		this.errorSound = new File("A-Tone.wav");
-		
-		this.audioStream = AudioSystem.getAudioInputStream(beep);
-		this.beepClip = AudioSystem.getClip();
-		
-		this.audioStream = AudioSystem.getAudioInputStream(boop);
-		this.boopClip = AudioSystem.getClip();
-		
-		this.audioStream = AudioSystem.getAudioInputStream(errorSound);
-		this.errorClip = AudioSystem.getClip();
 		
 		this.window = new JFrame();
 		
@@ -268,52 +257,182 @@ public class GUI extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.buttons.get(0)) {
-			this.display.setText("");
-			this.history.setText("");
+			if ((this.display.getText().equals(""))) {
+				try {
+					this.Play_Sound(this.errorSound);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
+			} else {
+				this.display.setText(""); 
+				this.history.setText("");
+				try {
+					this.Play_Sound(this.boop);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
+			}
 		} else if (e.getSource() == this.buttons.get(1)) {
-			this.display.setText("");
+			if (this.display.getText().equals("")) {
+				try {
+					this.Play_Sound(this.errorSound);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
+			} else {
+				this.display.setText("");
+				try {
+					this.Play_Sound(this.boop);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
+			}
 		} else if (e.getSource() == this.buttons.get(2)) {
 			if (this.display.getText().equals("")) {
-				//play error sound here
+				try {
+					this.Play_Sound(this.errorSound);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
 			} else {
 				this.display.setText(this.display.getText().substring(0, this.display.getText().length() - 1));
+				try {
+					this.Play_Sound(this.boop);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
 			}
 		} else if (e.getSource() == this.buttons.get(3)) {
 			this.display.setText(this.display.getText() + "/");
-			this.beepClip.start();
+			try {
+				this.Play_Sound(this.beep);
+			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+				e1.printStackTrace();
+			}
 		} else if (e.getSource() == this.buttons.get(4)) {
 			this.display.setText(this.display.getText() + "7");
+			try {
+				this.Play_Sound(this.beep);
+			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+				e1.printStackTrace();
+			}
 		} else if (e.getSource() == this.buttons.get(5)) {
 			this.display.setText(this.display.getText() + "8");
+			try {
+				this.Play_Sound(this.beep);
+			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+				e1.printStackTrace();
+			}
 		} else if (e.getSource() == this.buttons.get(6)) {
 			this.display.setText(this.display.getText() + "9");
+			try {
+				this.Play_Sound(this.beep);
+			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+				e1.printStackTrace();
+			}
 		} else if (e.getSource() == this.buttons.get(7)) {
 			this.display.setText(this.display.getText() + "*");
+			try {
+				this.Play_Sound(this.beep);
+			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+				e1.printStackTrace();
+			}
 		} else if (e.getSource() == this.buttons.get(8)) {
 			this.display.setText(this.display.getText() + "4");
+			try {
+				this.Play_Sound(this.beep);
+			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+				e1.printStackTrace();
+			}
 		} else if (e.getSource() == this.buttons.get(9)) {
 			this.display.setText(this.display.getText() + "5");
+			try {
+				this.Play_Sound(this.beep);
+			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+				e1.printStackTrace();
+			}
 		} else if (e.getSource() == this.buttons.get(10)) {
 			this.display.setText(this.display.getText() + "6");
+			try {
+				this.Play_Sound(this.beep);
+			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+				e1.printStackTrace();
+			}
 		} else if (e.getSource() == this.buttons.get(11)) {
 			this.display.setText(this.display.getText() + "-");
+			try {
+				this.Play_Sound(this.beep);
+			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+				e1.printStackTrace();
+			}
 		} else if (e.getSource() == this.buttons.get(12)) {
 			this.display.setText(this.display.getText() + "1");
+			try {
+				this.Play_Sound(this.beep);
+			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+				e1.printStackTrace();
+			}
 		} else if (e.getSource() == this.buttons.get(13)) {
 			this.display.setText(this.display.getText() + "2");
+			try {
+				this.Play_Sound(this.beep);
+			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+				e1.printStackTrace();
+			}
 		} else if (e.getSource() == this.buttons.get(14)) {
 			this.display.setText(this.display.getText() + "3");
+			try {
+				this.Play_Sound(this.beep);
+			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+				e1.printStackTrace();
+			}
 		} else if (e.getSource() == this.buttons.get(15)) {
 			this.display.setText(this.display.getText() + "+");
+			try {
+				this.Play_Sound(this.beep);
+			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+				e1.printStackTrace();
+			}
 		} else if (e.getSource() == this.buttons.get(16)) {
 			this.display.setText(this.display.getText() + "\u00B1");
+			try {
+				this.Play_Sound(this.beep);
+			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+				e1.printStackTrace();
+			}
 		} else if (e.getSource() == this.buttons.get(17)) {
 			this.display.setText(this.display.getText() + "0");
+			try {
+				this.Play_Sound(this.beep);
+			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+				e1.printStackTrace();
+			}
 		} else if (e.getSource() == this.buttons.get(18)) {
 			this.display.setText(this.display.getText() + ".");
+			try {
+				this.Play_Sound(this.beep);
+			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+				e1.printStackTrace();
+			}
 		} else if (e.getSource() == this.buttons.get(19)) {
 			this.history.setText(this.history.getText() + "\n" + this.display.getText());
 			this.display.setText("");
+			try {
+				this.Play_Sound(this.beep);
+			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+				e1.printStackTrace();
+			}
 		}
+	}
+	
+	public void Play_Sound(File fileToPlay) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+		AudioInputStream audioStream = AudioSystem.getAudioInputStream(fileToPlay);
+		this.clip = AudioSystem.getClip();
+		this.clip.open(audioStream);
+		if (this.clip.isRunning()) {
+			this.clip.stop();
+		}
+		this.clip.setFramePosition(0);
+		this.clip.start();
 	}
 }
