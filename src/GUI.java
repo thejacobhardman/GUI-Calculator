@@ -43,8 +43,6 @@ public class GUI extends JFrame implements ActionListener {
 	private File beep;
 	private File boop;
 	private File errorSound;
-	private Clip clip;
-	private AudioInputStream audioStream;
 	
 	public GUI() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		this.displayFont = new Font("Helvetica", Font.BOLD, 32);
@@ -427,12 +425,12 @@ public class GUI extends JFrame implements ActionListener {
 	
 	public void Play_Sound(File fileToPlay) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		AudioInputStream audioStream = AudioSystem.getAudioInputStream(fileToPlay);
-		this.clip = AudioSystem.getClip();
-		this.clip.open(audioStream);
-		if (this.clip.isRunning()) {
-			this.clip.stop();
+		Clip clip = AudioSystem.getClip();
+		clip.open(audioStream);
+		if (clip.isRunning()) {
+			clip.stop();
 		}
-		this.clip.setFramePosition(0);
-		this.clip.start();
+		clip.setFramePosition(0);
+		clip.start();
 	}
 }
