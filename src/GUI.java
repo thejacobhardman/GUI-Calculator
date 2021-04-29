@@ -391,11 +391,23 @@ public class GUI extends JFrame implements ActionListener {
 				e1.printStackTrace();
 			}
 		} else if (e.getSource() == this.buttons.get(16)) {
-			this.display.setText(this.display.getText() + "\u00B1");
-			try {
-				this.Play_Sound(this.beep);
-			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-				e1.printStackTrace();
+			if (!this.display.getText().equals("")) {
+				if (this.display.getText().charAt(0) == '-') {
+					this.display.setText(this.display.getText().substring(1));
+				} else {
+					this.display.setText("-" + this.display.getText());
+				}
+				try {
+					this.Play_Sound(this.beep);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
+			} else {
+				try {
+					this.Play_Sound(this.errorSound);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
 			}
 		} else if (e.getSource() == this.buttons.get(17)) {
 			this.display.setText(this.display.getText() + "0");
@@ -431,5 +443,9 @@ public class GUI extends JFrame implements ActionListener {
 		}
 		clip.setFramePosition(0);
 		clip.start();
+	}
+	
+	public float Calculate_Result() {
+		return 0;
 	}
 }
