@@ -254,7 +254,7 @@ public class GUI extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.buttons.get(0)) {
-			if ((this.display.getText().equals(""))) {
+			if ((this.history.getText().equals(""))) {
 				try {
 					this.Play_Sound(this.errorSound);
 				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
