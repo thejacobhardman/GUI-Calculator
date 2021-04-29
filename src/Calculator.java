@@ -1,8 +1,3 @@
-import java.io.IOException;
-
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
 /**********************************************************************
 *                 Final Project -- GUI Calculator                     *
 *                                                                     *
@@ -26,7 +21,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Calculator {
 
-	public static void main(String[] args) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+	public static void main(String[] args) {
 		new GUI();
 	}
 
