@@ -426,18 +426,24 @@ public class GUI extends JFrame implements ActionListener {
 				e1.printStackTrace();
 			}
 		} else if (e.getSource() == this.buttons.get(19)) {
-			try {
-				this.Calculate_Result(this.display.getText());
-			} catch (IOException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			}
-			//this.history.setText(this.history.getText() + "\n" + this.display.getText() + this.Calculate_Result(this.display.getText()));
-			this.display.setText("");
-			try {
-				this.Play_Sound(this.boop);
-			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-				e1.printStackTrace();
+			if (!this.display.getText().equals("")) {
+				try {
+					this.Calculate_Result(this.display.getText());
+				} catch (IOException e2) {
+					e2.printStackTrace();
+				}
+				this.display.setText("");
+				try {
+					this.Play_Sound(this.boop);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
+			} else {
+				try {
+					this.Play_Sound(this.errorSound);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
 			}
 		}
 	}
