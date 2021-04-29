@@ -22,7 +22,6 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.net.URL;
 import java.util.ArrayList;
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -44,7 +43,7 @@ public class GUI extends JFrame implements ActionListener {
 	private File boop;
 	private File errorSound;
 	
-	public GUI() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+	public GUI() {
 		this.displayFont = new Font("Helvetica", Font.BOLD, 32);
 		this.historyFont = new Font("Helvetica", Font.BOLD, 24);
 		this.buttonFont = new Font("Helvetica", Font.BOLD, 18);
@@ -416,7 +415,7 @@ public class GUI extends JFrame implements ActionListener {
 			this.history.setText(this.history.getText() + "\n" + this.display.getText());
 			this.display.setText("");
 			try {
-				this.Play_Sound(this.beep);
+				this.Play_Sound(this.boop);
 			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
 				e1.printStackTrace();
 			}
