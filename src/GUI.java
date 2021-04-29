@@ -25,6 +25,7 @@ import java.io.*;
 import java.util.ArrayList;
 import javax.sound.sampled.*;
 import javax.swing.*;
+import jdk.jshell.JShell;
 
 @SuppressWarnings("serial")
 public class GUI extends JFrame implements ActionListener {
@@ -44,6 +45,7 @@ public class GUI extends JFrame implements ActionListener {
 	private File errorSound;
 	
 	public GUI() {
+		
 		this.displayFont = new Font("Helvetica", Font.BOLD, 32);
 		this.historyFont = new Font("Helvetica", Font.BOLD, 24);
 		this.buttonFont = new Font("Helvetica", Font.BOLD, 18);
@@ -424,7 +426,13 @@ public class GUI extends JFrame implements ActionListener {
 				e1.printStackTrace();
 			}
 		} else if (e.getSource() == this.buttons.get(19)) {
-			this.history.setText(this.history.getText() + "\n" + this.display.getText());
+			try {
+				this.Calculate_Result(this.display.getText());
+			} catch (IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			//this.history.setText(this.history.getText() + "\n" + this.display.getText() + this.Calculate_Result(this.display.getText()));
 			this.display.setText("");
 			try {
 				this.Play_Sound(this.boop);
@@ -445,7 +453,14 @@ public class GUI extends JFrame implements ActionListener {
 		clip.start();
 	}
 	
-	public float Calculate_Result() {
-		return 0;
+	public void Calculate_Result(String problem) throws IOException {
+		try(JShell js = JShell.create();) {
+            js.onSnippetEvent(snip -> {
+                if (snip.status() == jdk.jshell.Snippet.Status.VALID) {
+                	this.history.setText(this.history.getText() + "\n" + String.valueOf(snip.value()) + " = " + this.display.getText());
+                }
+            });
+            js.eval(js.sourceCodeAnalysis().analyzeCompletion(problem).source());
+        }
 	}
 }
