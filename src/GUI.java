@@ -33,9 +33,10 @@ public class GUI extends JFrame implements ActionListener {
 	private JFrame window;
 	private JPanel panel;
 	private JMenuBar menuBar;
-	private JMenu optionsMenu, helpMenu;
-	private JMenuItem menuItem;
+	private JMenu fileMenu, optionsMenu, helpMenu;
+	private JMenuItem exportButton, menuItem;
 	private JRadioButtonMenuItem darkThemeOption, lightThemeOption;
+	private JCheckBoxMenuItem soundEffectsToggle;
 	private GridBagConstraints constraints;
 	private JScrollPane scrollPane;
 	private JTextArea history;
@@ -43,6 +44,7 @@ public class GUI extends JFrame implements ActionListener {
 	private ArrayList<JButton> buttons;
 	private Font displayFont, historyFont, buttonFont;
 	private File beep, boop, errorSound;
+	private boolean areSoundEffectEnabled;
 	
 	public GUI() {
 		this.displayFont = new Font("Helvetica", Font.BOLD, 32);
@@ -52,32 +54,47 @@ public class GUI extends JFrame implements ActionListener {
 		this.beep = new File("Robot_blip-Marianne_Gagnon.wav");
 		this.boop = new File("Robot_blip_2-Marianne_Gagnon.wav");
 		this.errorSound = new File("A-Tone.wav");
+		this.areSoundEffectEnabled = true;
 		
 		this.window = new JFrame();
 		this.panel = new JPanel();
 		
 		this.menuBar = new JMenuBar();
 		
+		this.fileMenu = new JMenu("File");
+		this.exportButton = new JMenuItem("Export History To File");
+		this.exportButton.addActionListener(this);
+		this.fileMenu.add(this.exportButton);
 		this.optionsMenu = new JMenu("Options");
 		this.menuItem = new JMenuItem("UI THEME:");
 		this.optionsMenu.add(this.menuItem);
 		this.optionsMenu.addSeparator();
-		ButtonGroup radioButtons = new ButtonGroup();
+		ButtonGroup themeButtons = new ButtonGroup();
 		this.darkThemeOption = new JRadioButtonMenuItem("Dark Theme");
 		this.darkThemeOption.setSelected(true);
 		this.darkThemeOption.addActionListener(this);
 		this.lightThemeOption = new JRadioButtonMenuItem("Light Theme");
 		this.lightThemeOption.addActionListener(this);
-		radioButtons.add(darkThemeOption);
-		radioButtons.add(lightThemeOption);
+		themeButtons.add(darkThemeOption);
+		themeButtons.add(lightThemeOption);
 		this.optionsMenu.add(this.darkThemeOption);
 		this.optionsMenu.add(this.lightThemeOption);
+		this.optionsMenu.addSeparator();
+		this.optionsMenu.addSeparator();
+		this.menuItem = new JMenuItem("SOUND EFFECTS:");
+		this.optionsMenu.add(this.menuItem);
+		this.optionsMenu.addSeparator();
+		this.soundEffectsToggle = new JCheckBoxMenuItem("On");
+		this.soundEffectsToggle.setSelected(true);
+		this.soundEffectsToggle.addActionListener(this);
+		this.optionsMenu.add(this.soundEffectsToggle);
 		
 		this.helpMenu = new JMenu("Help");
 		this.menuItem = new JMenuItem("View README");
 		this.menuItem.addActionListener(this);
 		this.helpMenu.add(this.menuItem);
 		
+		this.menuBar.add(this.fileMenu);
 		this.menuBar.add(optionsMenu);
 		this.menuBar.add(helpMenu);
 		this.window.setJMenuBar(this.menuBar);
@@ -297,141 +314,179 @@ public class GUI extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.buttons.get(0)) {
-			if ((this.history.getText().equals(""))) {
-				try {
-					this.Play_Sound(this.errorSound);
-				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-					e1.printStackTrace();
+			if (this.display.getText().equals("") && this.history.getText().equals("")) {
+				if (this.areSoundEffectEnabled == true) {
+					try {
+						this.Play_Sound(this.errorSound);
+					} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+						e1.printStackTrace();
+					}
 				}
 			} else {
 				this.display.setText(""); 
 				this.history.setText("");
-				try {
-					this.Play_Sound(this.boop);
-				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-					e1.printStackTrace();
+				if (this.areSoundEffectEnabled == true) {
+					try {
+						this.Play_Sound(this.boop);
+					} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+						e1.printStackTrace();
+					}
 				}
 			}
 		} else if (e.getSource() == this.buttons.get(1)) {
 			if (this.display.getText().equals("")) {
-				try {
-					this.Play_Sound(this.errorSound);
-				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-					e1.printStackTrace();
+				if (this.areSoundEffectEnabled == true) {
+					try {
+						this.Play_Sound(this.errorSound);
+					} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+						e1.printStackTrace();
+					}
 				}
 			} else {
 				this.display.setText("");
-				try {
-					this.Play_Sound(this.boop);
-				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-					e1.printStackTrace();
+				if (this.areSoundEffectEnabled == true) {
+					try {
+						this.Play_Sound(this.boop);
+					} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+						e1.printStackTrace();
+					}
 				}
 			}
 		} else if (e.getSource() == this.buttons.get(2)) {
 			if (this.display.getText().equals("")) {
-				try {
-					this.Play_Sound(this.errorSound);
-				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-					e1.printStackTrace();
+				if (this.areSoundEffectEnabled == true) {
+					try {
+						this.Play_Sound(this.errorSound);
+					} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+						e1.printStackTrace();
+					}
 				}
 			} else {
 				this.display.setText(this.display.getText().substring(0, this.display.getText().length() - 1));
-				try {
-					this.Play_Sound(this.boop);
-				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-					e1.printStackTrace();
+				if (this.areSoundEffectEnabled == true) {
+					try {
+						this.Play_Sound(this.boop);
+					} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+						e1.printStackTrace();
+					}
 				}
 			}
 		} else if (e.getSource() == this.buttons.get(3)) {
 			this.display.setText(this.display.getText() + "/");
-			try {
-				this.Play_Sound(this.beep);
-			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-				e1.printStackTrace();
+			if (this.areSoundEffectEnabled == true) {
+				try {
+					this.Play_Sound(this.beep);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
 			}
 		} else if (e.getSource() == this.buttons.get(4)) {
 			this.display.setText(this.display.getText() + "7");
-			try {
-				this.Play_Sound(this.beep);
-			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-				e1.printStackTrace();
+			if (this.areSoundEffectEnabled == true) {
+				try {
+					this.Play_Sound(this.beep);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
 			}
 		} else if (e.getSource() == this.buttons.get(5)) {
 			this.display.setText(this.display.getText() + "8");
-			try {
-				this.Play_Sound(this.beep);
-			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-				e1.printStackTrace();
+			if (this.areSoundEffectEnabled == true) {
+				try {
+					this.Play_Sound(this.beep);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
 			}
 		} else if (e.getSource() == this.buttons.get(6)) {
 			this.display.setText(this.display.getText() + "9");
-			try {
-				this.Play_Sound(this.beep);
-			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-				e1.printStackTrace();
+			if (this.areSoundEffectEnabled == true) {
+				try {
+					this.Play_Sound(this.beep);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
 			}
 		} else if (e.getSource() == this.buttons.get(7)) {
 			this.display.setText(this.display.getText() + "*");
-			try {
-				this.Play_Sound(this.beep);
-			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-				e1.printStackTrace();
+			if (this.areSoundEffectEnabled == true) {
+				try {
+					this.Play_Sound(this.beep);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
 			}
 		} else if (e.getSource() == this.buttons.get(8)) {
 			this.display.setText(this.display.getText() + "4");
-			try {
-				this.Play_Sound(this.beep);
-			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-				e1.printStackTrace();
+			if (this.areSoundEffectEnabled == true) {
+				try {
+					this.Play_Sound(this.beep);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
 			}
 		} else if (e.getSource() == this.buttons.get(9)) {
 			this.display.setText(this.display.getText() + "5");
-			try {
-				this.Play_Sound(this.beep);
-			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-				e1.printStackTrace();
+			if (this.areSoundEffectEnabled == true) {
+				try {
+					this.Play_Sound(this.beep);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
 			}
 		} else if (e.getSource() == this.buttons.get(10)) {
 			this.display.setText(this.display.getText() + "6");
-			try {
-				this.Play_Sound(this.beep);
-			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-				e1.printStackTrace();
+			if (this.areSoundEffectEnabled == true) {
+				try {
+					this.Play_Sound(this.beep);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
 			}
 		} else if (e.getSource() == this.buttons.get(11)) {
 			this.display.setText(this.display.getText() + "-");
-			try {
-				this.Play_Sound(this.beep);
-			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-				e1.printStackTrace();
+			if (this.areSoundEffectEnabled == true) {
+				try {
+					this.Play_Sound(this.beep);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
 			}
 		} else if (e.getSource() == this.buttons.get(12)) {
 			this.display.setText(this.display.getText() + "1");
-			try {
-				this.Play_Sound(this.beep);
-			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-				e1.printStackTrace();
+			if (this.areSoundEffectEnabled == true) {
+				try {
+					this.Play_Sound(this.beep);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
 			}
 		} else if (e.getSource() == this.buttons.get(13)) {
 			this.display.setText(this.display.getText() + "2");
-			try {
-				this.Play_Sound(this.beep);
-			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-				e1.printStackTrace();
+			if (this.areSoundEffectEnabled == true) {
+				try {
+					this.Play_Sound(this.beep);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
 			}
 		} else if (e.getSource() == this.buttons.get(14)) {
 			this.display.setText(this.display.getText() + "3");
-			try {
-				this.Play_Sound(this.beep);
-			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-				e1.printStackTrace();
+			if (this.areSoundEffectEnabled == true) {
+				try {
+					this.Play_Sound(this.beep);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
 			}
 		} else if (e.getSource() == this.buttons.get(15)) {
 			this.display.setText(this.display.getText() + "+");
-			try {
-				this.Play_Sound(this.beep);
-			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-				e1.printStackTrace();
+			if (this.areSoundEffectEnabled == true) {
+				try {
+					this.Play_Sound(this.beep);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
 			}
 		} else if (e.getSource() == this.buttons.get(16)) {
 			if (!this.display.getText().equals("")) {
@@ -440,31 +495,39 @@ public class GUI extends JFrame implements ActionListener {
 				} else {
 					this.display.setText("-" + this.display.getText());
 				}
+				if (this.areSoundEffectEnabled == true) {
+					try {
+						this.Play_Sound(this.beep);
+					} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+						e1.printStackTrace();
+					}
+				}
+			} else {
+				if (this.areSoundEffectEnabled == true) {
+					try {
+						this.Play_Sound(this.errorSound);
+					} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		} else if (e.getSource() == this.buttons.get(17)) {
+			this.display.setText(this.display.getText() + "0");
+			if (this.areSoundEffectEnabled == true) {
 				try {
 					this.Play_Sound(this.beep);
 				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
 					e1.printStackTrace();
 				}
-			} else {
-				try {
-					this.Play_Sound(this.errorSound);
-				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-					e1.printStackTrace();
-				}
-			}
-		} else if (e.getSource() == this.buttons.get(17)) {
-			this.display.setText(this.display.getText() + "0");
-			try {
-				this.Play_Sound(this.beep);
-			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-				e1.printStackTrace();
 			}
 		} else if (e.getSource() == this.buttons.get(18)) {
 			this.display.setText(this.display.getText() + ".");
-			try {
-				this.Play_Sound(this.beep);
-			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-				e1.printStackTrace();
+			if (this.areSoundEffectEnabled == true) {
+				try {
+					this.Play_Sound(this.beep);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
 			}
 		} else if (e.getSource() == this.buttons.get(19)) {
 			if (!this.display.getText().equals("")) {
@@ -474,15 +537,71 @@ public class GUI extends JFrame implements ActionListener {
 				} catch (IOException e2) {
 					e2.printStackTrace();
 				}
-				try {
-					this.Play_Sound(this.boop);
-				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-					e1.printStackTrace();
+				if (this.areSoundEffectEnabled == true) {
+					try {
+						this.Play_Sound(this.boop);
+					} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+						e1.printStackTrace();
+					}
 				}
 			} else {
+				if (this.areSoundEffectEnabled == true) {
+					try {
+						this.Play_Sound(this.errorSound);
+					} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		} else if (e.getSource() == this.exportButton) {
+			if (this.history.getText().equals("")) {
+				if (this.areSoundEffectEnabled == true) {
+        			try {
+    					this.Play_Sound(this.errorSound);
+    				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+    					e1.printStackTrace();
+    				}
+        		}
+        		JOptionPane.showMessageDialog(this.window,
+            		    "Your history is currently empty.",
+            		    "Error",
+            		    JOptionPane.WARNING_MESSAGE);
+			} else {
+				String fileName = (String)JOptionPane.showInputDialog(
+	                    							 this.window,
+	                    							 "Save history as:",
+	                    							 "Export History",
+	                    							 JOptionPane.PLAIN_MESSAGE);
+				fileName += ".txt";
+				@SuppressWarnings("unused")
+				File exportedHistory = new File(fileName);
 				try {
-					this.Play_Sound(this.errorSound);
-				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					FileWriter writer = new FileWriter(fileName);
+					writer.write(this.history.getText());
+					writer.close();
+					if (this.areSoundEffectEnabled == true) {
+            			try {
+        					this.Play_Sound(this.beep);
+        				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+        					e1.printStackTrace();
+        				}
+            		}
+            		JOptionPane.showMessageDialog(this.window,
+                		    (fileName + ".txt saved successfully."),
+                		    "Success",
+                		    JOptionPane.PLAIN_MESSAGE);
+				} catch (IOException e1) {
+					if (this.areSoundEffectEnabled == true) {
+	        			try {
+	    					this.Play_Sound(this.errorSound);
+	    				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e2) {
+	    					e2.printStackTrace();
+	    				}
+	        			JOptionPane.showMessageDialog(this.window,
+	                		    "Error exporting history.",
+	                		    "Error",
+	                		    JOptionPane.ERROR_MESSAGE);
+	        		}
 					e1.printStackTrace();
 				}
 			}
@@ -540,6 +659,14 @@ public class GUI extends JFrame implements ActionListener {
 		    		this.buttons.get(i).setBackground(Color.lightGray);
 		    	}
 		    }
+		} else if (e.getSource() == this.soundEffectsToggle) {
+			if (this.areSoundEffectEnabled == true) {
+				this.areSoundEffectEnabled = false;
+				this.soundEffectsToggle.setText("Off");
+			} else {
+				this.areSoundEffectEnabled = true;
+				this.soundEffectsToggle.setText("On");
+			}
 		} else if (e.getSource() == this.menuItem) {
 			File readMe = new File("README.md");
 			if (!Desktop.isDesktopSupported()) {
@@ -581,11 +708,13 @@ public class GUI extends JFrame implements ActionListener {
             js.onSnippetEvent(snip -> {
                 if (snip.status() == jdk.jshell.Snippet.Status.VALID) {
                 	if (String.valueOf(snip.value()).equals("null")) {
-                		try {
-        					this.Play_Sound(this.errorSound);
-        				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-        					e1.printStackTrace();
-        				}
+                		if (this.areSoundEffectEnabled == true) {
+                			try {
+            					this.Play_Sound(this.errorSound);
+            				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+            					e1.printStackTrace();
+            				}
+                		}
                 		JOptionPane.showMessageDialog(this.window,
                     		    "Invalid Operation.",
                     		    "Error",
@@ -594,11 +723,13 @@ public class GUI extends JFrame implements ActionListener {
                 		this.history.setText(this.history.getText() + "\n" + String.valueOf(snip.value()) + " = " + this.display.getText());
                 	}
                 } else {
-                	try {
-    					this.Play_Sound(this.errorSound);
-    				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-    					e1.printStackTrace();
-    				}
+                	if (this.areSoundEffectEnabled == true) {
+                		try {
+        					this.Play_Sound(this.errorSound);
+        				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+        					e1.printStackTrace();
+        				}
+                	}
                 	JOptionPane.showMessageDialog(this.window,
                 		    "Invalid Operation.",
                 		    "Error",
@@ -608,11 +739,13 @@ public class GUI extends JFrame implements ActionListener {
             try {
             	js.eval(js.sourceCodeAnalysis().analyzeCompletion(problem).source());
             } catch (Exception e) {
-            	try {
-					this.Play_Sound(this.errorSound);
-				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-					e1.printStackTrace();
-				}
+            	if (this.areSoundEffectEnabled == true) {
+            		try {
+    					this.Play_Sound(this.errorSound);
+    				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+    					e1.printStackTrace();
+    				}
+            	}
             	JOptionPane.showMessageDialog(this.window,
             		    "Invalid Operation.",
             		    "Error",
