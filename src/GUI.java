@@ -32,20 +32,19 @@ public class GUI extends JFrame implements ActionListener {
 	
 	private JFrame window;
 	private JPanel panel;
+	private JMenuBar menuBar;
+	private JMenu optionsMenu, helpMenu;
+	private JMenuItem menuItem;
+	private JRadioButtonMenuItem darkThemeOption, lightThemeOption;
 	private GridBagConstraints constraints;
 	private JScrollPane scrollPane;
 	private JTextArea history;
 	private JTextField display;
 	private ArrayList<JButton> buttons;
-	private Font displayFont;
-	private Font historyFont;
-	private Font buttonFont;
-	private File beep;
-	private File boop;
-	private File errorSound;
+	private Font displayFont, historyFont, buttonFont;
+	private File beep, boop, errorSound;
 	
 	public GUI() {
-		
 		this.displayFont = new Font("Helvetica", Font.BOLD, 32);
 		this.historyFont = new Font("Helvetica", Font.BOLD, 24);
 		this.buttonFont = new Font("Helvetica", Font.BOLD, 18);
@@ -55,8 +54,30 @@ public class GUI extends JFrame implements ActionListener {
 		this.errorSound = new File("A-Tone.wav");
 		
 		this.window = new JFrame();
-		
 		this.panel = new JPanel();
+		
+		this.menuBar = new JMenuBar();
+		
+		this.optionsMenu = new JMenu("Options");
+		this.menuItem = new JMenuItem("UI THEME:");
+		this.optionsMenu.add(this.menuItem);
+		this.optionsMenu.addSeparator();
+		ButtonGroup radioButtons = new ButtonGroup();
+		this.darkThemeOption = new JRadioButtonMenuItem("Dark Theme");
+		this.darkThemeOption.setSelected(true);
+		this.darkThemeOption.addActionListener(this);
+		this.lightThemeOption = new JRadioButtonMenuItem("Light Theme");
+		this.lightThemeOption.addActionListener(this);
+		radioButtons.add(darkThemeOption);
+		radioButtons.add(lightThemeOption);
+		this.optionsMenu.add(this.darkThemeOption);
+		this.optionsMenu.add(this.lightThemeOption);
+		
+		this.helpMenu = new JMenu("Help");
+		
+		this.menuBar.add(optionsMenu);
+		this.menuBar.add(helpMenu);
+		this.window.setJMenuBar(this.menuBar);
 		
 		this.history = new JTextArea();
 		this.history.setEditable(false);
@@ -64,7 +85,6 @@ public class GUI extends JFrame implements ActionListener {
 		this.history.setForeground(Color.white);
 		this.history.setBorder(BorderFactory.createRaisedBevelBorder());
 		this.history.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		//this.history.setLineWrap(true);
 		this.history.setFont(historyFont);
 		
 		this.display = new JTextField();
@@ -113,62 +133,77 @@ public class GUI extends JFrame implements ActionListener {
 	    	case 1:
 	    		buttonToAdd.setText("C");
 	    		buttonToAdd.setBackground(Color.decode("#191a1c"));
+	    		buttonToAdd.setMnemonic(KeyEvent.VK_ESCAPE);
 	    		break;
 	    	case 2:
 	    		buttonToAdd.setText("Del");
 	    		buttonToAdd.setBackground(Color.decode("#191a1c"));
+	    		buttonToAdd.setMnemonic(KeyEvent.VK_BACK_SPACE);
 	    		break;
 	    	case 3:
 	    		buttonToAdd.setText("/");
 	    		buttonToAdd.setBackground(Color.decode("#191a1c"));
+	    		buttonToAdd.setMnemonic(KeyEvent.VK_DIVIDE);
 	    		break;
 	    	case 4:
 	    		buttonToAdd.setText("7");
 	    		buttonToAdd.setBackground(Color.black);
+	    		buttonToAdd.setMnemonic(KeyEvent.VK_NUMPAD7);
 	    		break;
 	    	case 5:
 	    		buttonToAdd.setText("8");
 	    		buttonToAdd.setBackground(Color.black);
+	    		buttonToAdd.setMnemonic(KeyEvent.VK_NUMPAD8);
 	    		break;
 	    	case 6:
 	    		buttonToAdd.setText("9");
 	    		buttonToAdd.setBackground(Color.black);
+	    		buttonToAdd.setMnemonic(KeyEvent.VK_NUMPAD9);
 	    		break;
 	    	case 7:
 	    		buttonToAdd.setText("*");
 	    		buttonToAdd.setBackground(Color.decode("#191a1c"));
+	    		buttonToAdd.setMnemonic(KeyEvent.VK_MULTIPLY);
 	    		break;
 	    	case 8:
 	    		buttonToAdd.setText("4");
 	    		buttonToAdd.setBackground(Color.black);
+	    		buttonToAdd.setMnemonic(KeyEvent.VK_NUMPAD4);
 	    		break;
 	    	case 9:
 	    		buttonToAdd.setText("5");
 	    		buttonToAdd.setBackground(Color.black);
+	    		buttonToAdd.setMnemonic(KeyEvent.VK_NUMPAD5);
 	    		break;
 	    	case 10:
 	    		buttonToAdd.setText("6");
 	    		buttonToAdd.setBackground(Color.black);
+	    		buttonToAdd.setMnemonic(KeyEvent.VK_NUMPAD6);
 	    		break;
 	    	case 11:
 	    		buttonToAdd.setText("-");
 	    		buttonToAdd.setBackground(Color.decode("#191a1c"));
+	    		buttonToAdd.setMnemonic(KeyEvent.VK_SUBTRACT);
 	    		break;
 	    	case 12:
 	    		buttonToAdd.setText("1");
 	    		buttonToAdd.setBackground(Color.black);
+	    		buttonToAdd.setMnemonic(KeyEvent.VK_NUMPAD1);
 	    		break;
 	    	case 13:
 	    		buttonToAdd.setText("2");
 	    		buttonToAdd.setBackground(Color.black);
+	    		buttonToAdd.setMnemonic(KeyEvent.VK_NUMPAD2);
 	    		break;
 	    	case 14:
 	    		buttonToAdd.setText("3");
 	    		buttonToAdd.setBackground(Color.black);
+	    		buttonToAdd.setMnemonic(KeyEvent.VK_NUMPAD3);
 	    		break;
 	    	case 15:
 	    		buttonToAdd.setText("+");
 	    		buttonToAdd.setBackground(Color.decode("#191a1c"));
+	    		buttonToAdd.setMnemonic(KeyEvent.VK_ADD);
 	    		break;
 	    	case 16:
 	    		buttonToAdd.setText("\u00B1");
@@ -177,14 +212,17 @@ public class GUI extends JFrame implements ActionListener {
 	    	case 17:
 	    		buttonToAdd.setText("0");
 	    		buttonToAdd.setBackground(Color.black);
+	    		buttonToAdd.setMnemonic(KeyEvent.VK_NUMPAD0);
 	    		break;
 	    	case 18:
 	    		buttonToAdd.setText(".");
 	    		buttonToAdd.setBackground(Color.decode("#191a1c"));
+	    		buttonToAdd.setMnemonic(KeyEvent.VK_DECIMAL);
 	    		break;
 	    	case 19:
 	    		buttonToAdd.setText("=");
 	    		buttonToAdd.setBackground(Color.decode("#191a1c"));
+	    		buttonToAdd.setMnemonic(KeyEvent.VK_ENTER);
 	    		break;
 	    	}
 	    	
@@ -445,6 +483,60 @@ public class GUI extends JFrame implements ActionListener {
 					e1.printStackTrace();
 				}
 			}
+		} else if (e.getSource() == this.darkThemeOption) {
+			this.history.setBackground(Color.decode("#33353a"));
+			this.history.setForeground(Color.white);
+			this.display.setBackground(Color.decode("#3f4349"));
+			this.display.setForeground(Color.white);
+		    for (int i = 0; i < 20; i++) {
+		    	this.buttons.get(i).setForeground(Color.white);
+		    	if (i < 4) {
+		    		this.buttons.get(i).setBackground(Color.decode("#191a1c"));
+		    	} else if (i >= 4 && i < 7) {
+		    		this.buttons.get(i).setBackground(Color.black);
+		    	} else if (i == 7) {
+		    		this.buttons.get(i).setBackground(Color.decode("#191a1c"));
+		    	} else if (i >= 8 && i < 11) {
+		    		this.buttons.get(i).setBackground(Color.black);
+		    	} else if (i == 11) {
+		    		this.buttons.get(i).setBackground(Color.decode("#191a1c"));
+		    	} else if (i >= 12 && i < 15) {
+		    		this.buttons.get(i).setBackground(Color.black);
+		    	} else if (i >= 15 && i < 17) {
+		    		this.buttons.get(i).setBackground(Color.decode("#191a1c"));
+		    	} else if (i == 17) {
+		    		this.buttons.get(i).setBackground(Color.black);
+		    	} else {
+		    		this.buttons.get(i).setBackground(Color.decode("#191a1c"));
+		    	}
+		    }
+		} else if (e.getSource() == this.lightThemeOption) {
+			this.history.setBackground(Color.white);
+			this.history.setForeground(Color.black);
+			this.display.setBackground(Color.white);
+			this.display.setForeground(Color.black);
+		    for (int i = 0; i < 20; i++) {
+		    	this.buttons.get(i).setForeground(Color.black);
+		    	if (i < 4) {
+		    		this.buttons.get(i).setBackground(Color.lightGray);
+		    	} else if (i >= 4 && i < 7) {
+		    		this.buttons.get(i).setBackground(Color.white);
+		    	} else if (i == 7) {
+		    		this.buttons.get(i).setBackground(Color.lightGray);
+		    	} else if (i >= 8 && i < 11) {
+		    		this.buttons.get(i).setBackground(Color.white);
+		    	} else if (i == 11) {
+		    		this.buttons.get(i).setBackground(Color.lightGray);
+		    	} else if (i >= 12 && i < 15) {
+		    		this.buttons.get(i).setBackground(Color.white);
+		    	} else if (i >= 15 && i < 17) {
+		    		this.buttons.get(i).setBackground(Color.lightGray);
+		    	} else if (i == 17) {
+		    		this.buttons.get(i).setBackground(Color.white);
+		    	} else {
+		    		this.buttons.get(i).setBackground(Color.lightGray);
+		    	}
+		    }
 		}
 	}
 	
