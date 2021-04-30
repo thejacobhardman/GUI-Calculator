@@ -590,6 +590,26 @@ public class GUI extends JFrame implements ActionListener {
                 		    (fileName + " saved successfully."),
                 		    "Success",
                 		    JOptionPane.PLAIN_MESSAGE);
+            		if (!Desktop.isDesktopSupported()) {
+        				JOptionPane.showMessageDialog(this.window,
+                    		    "ERROR OPENING SAVED FILE",
+                    		    "Error",
+                    		    JOptionPane.ERROR_MESSAGE);
+        			} else {
+        				Desktop desktop = Desktop.getDesktop();
+        				if (exportedHistory.exists()) {
+        					try {
+        						desktop.open(exportedHistory);
+        					} catch (IOException e1) {
+        						e1.printStackTrace();
+        					}
+        				} else {
+        					JOptionPane.showMessageDialog(this.window,
+        	            		    (fileName + " not found!"),
+        	            		    "Error",
+        	            		    JOptionPane.ERROR_MESSAGE);
+        				}
+        			}
 				} catch (IOException e1) {
 					if (this.areSoundEffectEnabled == true) {
 	        			try {
