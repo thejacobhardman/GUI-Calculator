@@ -74,6 +74,9 @@ public class GUI extends JFrame implements ActionListener {
 		this.optionsMenu.add(this.lightThemeOption);
 		
 		this.helpMenu = new JMenu("Help");
+		this.menuItem = new JMenuItem("View README");
+		this.menuItem.addActionListener(this);
+		this.helpMenu.add(this.menuItem);
 		
 		this.menuBar.add(optionsMenu);
 		this.menuBar.add(helpMenu);
@@ -537,6 +540,28 @@ public class GUI extends JFrame implements ActionListener {
 		    		this.buttons.get(i).setBackground(Color.lightGray);
 		    	}
 		    }
+		} else if (e.getSource() == this.menuItem) {
+			File readMe = new File("README.md");
+			if (!Desktop.isDesktopSupported()) {
+				JOptionPane.showMessageDialog(this.window,
+            		    "ERROR OPENING README",
+            		    "Error",
+            		    JOptionPane.ERROR_MESSAGE);
+			} else {
+				Desktop desktop = Desktop.getDesktop();
+				if (readMe.exists()) {
+					try {
+						desktop.open(readMe);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				} else {
+					JOptionPane.showMessageDialog(this.window,
+	            		    "README not found!",
+	            		    "Error",
+	            		    JOptionPane.ERROR_MESSAGE);
+				}
+			}
 		}
 	}
 	
