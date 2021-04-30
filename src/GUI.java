@@ -573,7 +573,6 @@ public class GUI extends JFrame implements ActionListener {
 	                    							 "Export History",
 	                    							 JOptionPane.PLAIN_MESSAGE);
 				fileName += ".txt";
-				@SuppressWarnings("unused")
 				File exportedHistory = new File(fileName);
 				try {
 					FileWriter writer = new FileWriter(fileName);
