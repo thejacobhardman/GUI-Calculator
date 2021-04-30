@@ -429,10 +429,10 @@ public class GUI extends JFrame implements ActionListener {
 			if (!this.display.getText().equals("")) {
 				try {
 					this.Calculate_Result(this.display.getText());
+					this.display.setText("");
 				} catch (IOException e2) {
 					e2.printStackTrace();
 				}
-				this.display.setText("");
 				try {
 					this.Play_Sound(this.boop);
 				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
@@ -463,10 +463,44 @@ public class GUI extends JFrame implements ActionListener {
 		try(JShell js = JShell.create();) {
             js.onSnippetEvent(snip -> {
                 if (snip.status() == jdk.jshell.Snippet.Status.VALID) {
-                	this.history.setText(this.history.getText() + "\n" + String.valueOf(snip.value()) + " = " + this.display.getText());
+                	if (String.valueOf(snip.value()).equals("null")) {
+                		try {
+        					this.Play_Sound(this.errorSound);
+        				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+        					e1.printStackTrace();
+        				}
+                		JOptionPane.showMessageDialog(this.window,
+                    		    "Invalid Operation.",
+                    		    "Error",
+                    		    JOptionPane.ERROR_MESSAGE);
+                	} else {
+                		this.history.setText(this.history.getText() + "\n" + String.valueOf(snip.value()) + " = " + this.display.getText());
+                	}
+                } else {
+                	try {
+    					this.Play_Sound(this.errorSound);
+    				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+    					e1.printStackTrace();
+    				}
+                	JOptionPane.showMessageDialog(this.window,
+                		    "Invalid Operation.",
+                		    "Error",
+                		    JOptionPane.ERROR_MESSAGE);
                 }
             });
-            js.eval(js.sourceCodeAnalysis().analyzeCompletion(problem).source());
+            try {
+            	js.eval(js.sourceCodeAnalysis().analyzeCompletion(problem).source());
+            } catch (Exception e) {
+            	try {
+					this.Play_Sound(this.errorSound);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
+            	JOptionPane.showMessageDialog(this.window,
+            		    "Invalid Operation.",
+            		    "Error",
+            		    JOptionPane.ERROR_MESSAGE);
+            }
         }
 	}
 }
