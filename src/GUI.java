@@ -587,7 +587,7 @@ public class GUI extends JFrame implements ActionListener {
         				}
             		}
             		JOptionPane.showMessageDialog(this.window,
-                		    (fileName + ".txt saved successfully."),
+                		    (fileName + " saved successfully."),
                 		    "Success",
                 		    JOptionPane.PLAIN_MESSAGE);
 				} catch (IOException e1) {
