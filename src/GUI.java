@@ -12,6 +12,43 @@
 * library for use in a Calculator program.                            *
 *                                                                     *
 * ATTRIBUTES:                                                         *
+* 	window -- The master Swing window that contains the application.  *
+* 	panel -- The master Swing panel that contains all of the child    *
+*   	     GUI elements.                                            *
+*   menuBar -- The master menu GUI element that contains the child    *
+*   		   menu UI elements.                                      *
+*   fileMenu -- The menu that contains the option to export the       *
+*   			calculator's history to a .txt file.                  *
+*   optionsMenu -- The menu that contains the options to change the   *
+*   			   UI theme and toggle the sound effects on and off.  *
+*   helpMenu -- The menu that contains a link to the program's        *
+*   			README file.                                          *
+*   exportButton -- Menu option that brings up the export dialog.     *
+*   menuItem -- Generic child menu item that is used to add new menu  *
+*   			items.                                                *
+*   darkThemeOption -- Menu radio button that toggles the UI's        *
+*   				   dark mode.                                     *
+*   lightThemeOption -- Menu radio button that toggles the UI's       *
+*   					light mode.                                   *
+*   soundEffectsToggle -- Menu check box that toggles the             *
+*   					  areSoundEffectsEnabled attribute.           *
+*   constraints -- Dimensions that control the UI's layout.           *
+*   scrollPane -- Enables scroll bars on the history pane if          *
+*   			  required.                                           *
+*   history -- Text area that stores and displays the calculator's    *
+*   		   history.                                               *
+*   display -- Text field that displays the calculator's active       *
+*   		   calculation.                                           *
+*   buttons -- The calculator's buttons stored in a List for          *
+*   		   convenience.                                           *
+*   displayFont, historyFont, buttonFont -- Fonts that are used in    *
+*   										the program. All of the   *
+*   										fonts are the same except *
+*   										for their size.           *
+*   beep, boop, errorSound -- Files that contain the sound effects    *
+*   						  used in the program.                    *
+*   areSoundEffectsEnabled -- Boolean value that tracks whether       *
+*   						  sound effects are enabled.              *
 *                                                                     *
 * COPYRIGHT:                                                          *
 * This program uses the open source MIT license. See LICENSE.txt for  *
@@ -47,6 +84,34 @@ public class GUI extends JFrame implements ActionListener {
 	private boolean areSoundEffectEnabled;
 	
 	public GUI() {
+		this.Load_Resources();
+		this.areSoundEffectEnabled = true;
+		
+		this.window = new JFrame();
+		this.panel = new JPanel();
+		
+		this.Construct_Menus();
+		
+		this.Construct_History();
+		this.Construct_Display();
+		
+		this.panel.setLayout(new GridBagLayout());
+	    this.panel.setBorder(BorderFactory.createEmptyBorder());
+	    
+	    this.constraints = new GridBagConstraints();
+		
+	    this.Set_Window_Constraints();
+	    this.Construct_Buttons();
+	    this.Set_Button_Constraints();
+	    
+	    this.window.setBounds(250, 250, 800, 800);
+	    this.window.add(panel, BorderLayout.CENTER);
+	    this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    this.window.setTitle("Calculator");
+	    this.window.setVisible(true);
+	}
+	
+	public void Load_Resources() {
 		this.displayFont = new Font("Helvetica", Font.BOLD, 32);
 		this.historyFont = new Font("Helvetica", Font.BOLD, 24);
 		this.buttonFont = new Font("Helvetica", Font.BOLD, 18);
@@ -54,11 +119,9 @@ public class GUI extends JFrame implements ActionListener {
 		this.beep = new File("Robot_blip-Marianne_Gagnon.wav");
 		this.boop = new File("Robot_blip_2-Marianne_Gagnon.wav");
 		this.errorSound = new File("A-Tone.wav");
-		this.areSoundEffectEnabled = true;
-		
-		this.window = new JFrame();
-		this.panel = new JPanel();
-		
+	}
+	
+	public void Construct_Menus() {
 		this.menuBar = new JMenuBar();
 		
 		this.fileMenu = new JMenu("File");
@@ -98,7 +161,9 @@ public class GUI extends JFrame implements ActionListener {
 		this.menuBar.add(optionsMenu);
 		this.menuBar.add(helpMenu);
 		this.window.setJMenuBar(this.menuBar);
-		
+	}
+	
+	public void Construct_History() {
 		this.history = new JTextArea();
 		this.history.setEditable(false);
 		this.history.setBackground(Color.decode("#33353a"));
@@ -106,7 +171,10 @@ public class GUI extends JFrame implements ActionListener {
 		this.history.setBorder(BorderFactory.createRaisedBevelBorder());
 		this.history.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		this.history.setFont(historyFont);
-		
+		this.scrollPane = new JScrollPane(this.history);
+	}
+	
+	public void Construct_Display() {
 		this.display = new JTextField();
 		this.display.setEditable(false);
 		this.display.setBackground(Color.decode("#3f4349"));
@@ -114,14 +182,9 @@ public class GUI extends JFrame implements ActionListener {
 		this.display.setBorder(BorderFactory.createRaisedBevelBorder());
 		this.display.setHorizontalAlignment(JTextField.TRAILING);
 		this.display.setFont(this.displayFont);
-		
-		this.scrollPane = new JScrollPane(this.history);
-		
-	    this.panel.setLayout(new GridBagLayout());
-	    this.panel.setBorder(BorderFactory.createEmptyBorder());
-	    
-	    this.constraints = new GridBagConstraints();
-	    
+	}
+	
+	public void Set_Window_Constraints() {
 	    this.constraints.fill = GridBagConstraints.BOTH;
 	    this.constraints.gridwidth = 4;
 	    this.constraints.gridheight = 1;
@@ -137,8 +200,10 @@ public class GUI extends JFrame implements ActionListener {
 	    this.constraints.weightx = 1.0;
 	    this.constraints.weighty = 1.0;
 	    this.panel.add(this.scrollPane, this.constraints);
-	    
-	    this.buttons = new ArrayList<JButton>();
+	}
+	
+	public void Construct_Buttons() {
+		this.buttons = new ArrayList<JButton>();
 	    
 	    for (int i = 0; i < 20; i++) {
 	    	JButton buttonToAdd = new JButton();
@@ -248,8 +313,10 @@ public class GUI extends JFrame implements ActionListener {
 	    	
 	    	this.buttons.add(buttonToAdd);
 	    }
-	    
-	    for (int i = 0; i < 4; i++) {
+	}
+	
+	public void Set_Button_Constraints() {
+		for (int i = 0; i < 4; i++) {
 	    	this.constraints.fill = GridBagConstraints.BOTH;
 		    this.constraints.gridx = i;
 		    this.constraints.gridy = 1;
@@ -303,12 +370,6 @@ public class GUI extends JFrame implements ActionListener {
 		    this.constraints.weighty = 0.5;
 		    this.panel.add(this.buttons.get(i), this.constraints);
 	    }
-	    
-	    this.window.setBounds(250, 250, 800, 800);
-	    this.window.add(panel, BorderLayout.CENTER);
-	    this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    this.window.setTitle("Calculator");
-	    this.window.setVisible(true);
 	}
 
 	@Override
