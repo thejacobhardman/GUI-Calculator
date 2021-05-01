@@ -11,7 +11,7 @@
 * The following is an OOP definition for a Calculator built using the *
 * Swing library.                                                      *
 *                                                                     *
-* ATTRIBUTES:                                                         *
+* ATTRIBUTES: None.                                                   *
 *                                                                     *
 * COPYRIGHT:                                                          *
 * This program uses the open source MIT license. See LICENSE.txt for  *
