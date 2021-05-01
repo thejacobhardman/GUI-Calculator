@@ -83,6 +83,12 @@ public class GUI extends JFrame implements ActionListener {
 	private File beep, boop, errorSound;
 	private boolean areSoundEffectEnabled;
 	
+	/************************************************************************
+	 * Method:   Constructor (no parameters)                                *
+	 * Purpose:  Creates the GUI for the calculator via helper methods.     *
+	 * Parameters: None                                                     *
+	 * Return value: None                                                   *
+	 ***********************************************************************/
 	public GUI() {
 		this.Load_Resources();
 		this.areSoundEffectEnabled = true;
@@ -111,6 +117,13 @@ public class GUI extends JFrame implements ActionListener {
 	    this.window.setVisible(true);
 	}
 	
+	/************************************************************************
+	 * Method:   Load_Resources				                                *
+	 * Purpose:  Loads in the fonts and files necessary for display         *
+	 * 			 and sound effects.                                         *
+	 * Parameters: None                                                     *
+	 * Return value: None                                                   *
+	 ***********************************************************************/
 	public void Load_Resources() {
 		this.displayFont = new Font("Helvetica", Font.BOLD, 32);
 		this.historyFont = new Font("Helvetica", Font.BOLD, 24);
@@ -121,6 +134,12 @@ public class GUI extends JFrame implements ActionListener {
 		this.errorSound = new File("A-Tone.wav");
 	}
 	
+	/************************************************************************
+	 * Method:   Construct_Menus				                            *
+	 * Purpose:  Builds the menus needed to display the program options.    *
+	 * Parameters: None                                                     *
+	 * Return value: None                                                   *
+	 ***********************************************************************/
 	public void Construct_Menus() {
 		this.menuBar = new JMenuBar();
 		
@@ -163,6 +182,13 @@ public class GUI extends JFrame implements ActionListener {
 		this.window.setJMenuBar(this.menuBar);
 	}
 	
+	/************************************************************************
+	 * Method:   Construct_History				                            *
+	 * Purpose:  Builds the history tab of the program that displays past   *
+	 * 			 calculations.                                              *
+	 * Parameters: None                                                     *
+	 * Return value: None                                                   *
+	 ***********************************************************************/
 	public void Construct_History() {
 		this.history = new JTextArea();
 		this.history.setEditable(false);
@@ -174,6 +200,13 @@ public class GUI extends JFrame implements ActionListener {
 		this.scrollPane = new JScrollPane(this.history);
 	}
 	
+	/************************************************************************
+	 * Method:   Construct_Display				                            *
+	 * Purpose:  Builds the display tab of the program that displays the    *
+	 * 			 current calculation being made.                            *
+	 * Parameters: None                                                     *
+	 * Return value: None                                                   *
+	 ***********************************************************************/
 	public void Construct_Display() {
 		this.display = new JTextField();
 		this.display.setEditable(false);
@@ -184,6 +217,13 @@ public class GUI extends JFrame implements ActionListener {
 		this.display.setFont(this.displayFont);
 	}
 	
+	/************************************************************************
+	 * Method:   Set_Window_Constraints				                        *
+	 * Purpose:  Sets the correct size proportions of the history and       *
+	 * 			 display UI elements.                                       *
+	 * Parameters: None                                                     *
+	 * Return value: None                                                   *
+	 ***********************************************************************/
 	public void Set_Window_Constraints() {
 	    this.constraints.fill = GridBagConstraints.BOTH;
 	    this.constraints.gridwidth = 4;
@@ -202,6 +242,12 @@ public class GUI extends JFrame implements ActionListener {
 	    this.panel.add(this.scrollPane, this.constraints);
 	}
 	
+	/************************************************************************
+	 * Method:   Construct_Buttons   				                        *
+	 * Purpose:  Builds the keypad part of the calculator as buttons.       *
+	 * Parameters: None                                                     *
+	 * Return value: None                                                   *
+	 ***********************************************************************/
 	public void Construct_Buttons() {
 		this.buttons = new ArrayList<JButton>();
 	    
@@ -315,6 +361,12 @@ public class GUI extends JFrame implements ActionListener {
 	    }
 	}
 	
+	/************************************************************************
+	 * Method:   Set_Button_Constraints				                        *
+	 * Purpose:  Sets the correct size proportions of the keypad buttons.   *
+	 * Parameters: None                                                     *
+	 * Return value: None                                                   *
+	 ***********************************************************************/
 	public void Set_Button_Constraints() {
 		for (int i = 0; i < 4; i++) {
 	    	this.constraints.fill = GridBagConstraints.BOTH;
@@ -372,6 +424,16 @@ public class GUI extends JFrame implements ActionListener {
 	    }
 	}
 
+	/************************************************************************
+	 * Method:   actionPerformed    				                        *
+	 * Purpose:  Processes actions that the user makes as they interact     *
+	 * 			 with the GUI. This includes button presses and changing    *
+	 * 			 the program options via the menus.                         *
+	 * Parameters:                                                          *
+	 * 		e -- The action event logged by the GUI. Used to access the     *
+	 * 			 source of the action.                                      *
+	 * Return value: None                                                   *
+	 ***********************************************************************/
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.buttons.get(0)) {
@@ -772,6 +834,14 @@ public class GUI extends JFrame implements ActionListener {
 		}
 	}
 	
+	/************************************************************************
+	 * Method:   Play_Sound         				                        *
+	 * Purpose:  Handles playing a sound effect based on what button is     *
+	 * 			 pressed.                                                   *
+	 * Parameters:                                                          *
+	 * 		fileToPlay -- The sound file that is being triggered.           *
+	 * Return value: None                                                   *
+	 ***********************************************************************/
 	public void Play_Sound(File fileToPlay) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		AudioInputStream audioStream = AudioSystem.getAudioInputStream(fileToPlay);
 		Clip clip = AudioSystem.getClip();
@@ -783,6 +853,15 @@ public class GUI extends JFrame implements ActionListener {
 		clip.start();
 	}
 	
+	/************************************************************************
+	 * Method:   Calculate_Result     				                        *
+	 * Purpose:  Calculates the result of the user inputed calculation and  *
+	 * 			 either updates the history UI or displays an error message.*
+	 * Parameters:                                                          *
+	 * 		problem -- The calculation to process. This is passed to this   *
+	 * 				   function by getting the display areas current text.  *
+	 * Return value: None                                                   *
+	 ***********************************************************************/
 	public void Calculate_Result(String problem) throws IOException {
 		try(JShell js = JShell.create();) {
             js.onSnippetEvent(snip -> {
