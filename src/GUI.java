@@ -91,8 +91,8 @@
 *		https://www.youtube.com/watch?v=TErboGLHZGA&t=0s			  *
 *                                                                     *
 * COPYRIGHT:                                                          *
-* This program uses the open source MIT license. See LICENSE.txt for  *
-* more information.                                                   *
+* This program uses the open source GNU General Public License.       * 
+* See LICENSE.txt for more information.                               *
 *                                                                     *
 **********************************************************************/
 
