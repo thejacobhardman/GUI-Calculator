@@ -80,6 +80,7 @@
 *		https://stackoverflow.com/questions/2335601/reliably-playing-a-short-sound-in-java
 *		https://stackoverflow.com/questions/21683904/how-can-i-open-execute-an-external-file-from-within-java
 *		https://stackoverflow.com/questions/15602104/display-file-in-java-swing-gui
+*		https://stackoverflow.com/a/40698149                          *
 *	YouTube -- I also watched a couple different YouTube tutorials    *
 *		regarding the implementation of different Swing UI elements.  *
 *		https://www.youtube.com/watch?v=5o3fMLPY7qY                   *
@@ -891,6 +892,9 @@ public class GUI extends JFrame implements ActionListener {
 		AudioInputStream audioStream = AudioSystem.getAudioInputStream(fileToPlay);
 		Clip clip = AudioSystem.getClip();
 		clip.open(audioStream);
+		//I got the two lines below from: https://stackoverflow.com/a/40698149
+		FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);        
+	    gainControl.setValue(20f * (float) Math.log10(0.25));
 		if (clip.isRunning()) {
 			clip.stop();
 		}
