@@ -7,7 +7,7 @@ I was limited for time so please feel free to maek any additions/changes that yo
 ### How To Run
 The main way to run the program is by running the **'Calculator.Java'** file via a Java interpreter. Running the **'GUI.Java'** file will also work at least in Eclipse.
  
- ### Program Features
+### Program Features
 1. Dark/Light UI Themes.
 2. Included Sound Effects (which can be toggled off).
 3. Ability to export calculator history to an external .txt file.
