@@ -239,8 +239,7 @@ public class GUI extends JFrame implements ActionListener {
 		this.history.setBackground(Color.decode("#33353a"));
 		this.history.setForeground(Color.white);
 		this.history.setBorder(BorderFactory.createRaisedBevelBorder());
-		this.history.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		this.history.setFont(historyFont);
+		this.history.setFont(this.historyFont);
 		this.scrollPane = new JScrollPane(this.history);
 	}
 	
@@ -923,7 +922,7 @@ public class GUI extends JFrame implements ActionListener {
                     		    "Error",
                     		    JOptionPane.ERROR_MESSAGE);
                 	} else {
-                		this.history.setText(this.history.getText() + "\n" + String.valueOf(snip.value()) + " = " + this.display.getText());
+                		this.history.append("\n" + this.display.getText() + " = " + snip.value());
                 	}
                 } else {
                 	if (this.areSoundEffectEnabled == true) {
