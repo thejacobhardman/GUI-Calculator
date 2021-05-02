@@ -50,6 +50,46 @@
 *   areSoundEffectsEnabled -- Boolean value that tracks whether       *
 *   						  sound effects are enabled.              *
 *                                                                     *
+* OUTSIDE SOURCES: The following outside sources were used to help    *
+* 				   finish this assignment. These sources were mainly  *
+* 				   used to help me understand how the Swing library   *
+* 				   works. Only very rarely did I copy/paste code      *
+* 				   and when I did so I ended up changing it           *
+* 			       drastically from the original.                     *
+* 																	  *
+* 	Official Oracle Swing Documentation -- I read the Swing           *
+* 		documentation on Oracle's website extensively in order to     *
+* 		learn and better understand how to implement the different    *
+* 		Swing UI components.										  *
+*       https://docs.oracle.com/javase/tutorial/uiswing/components/index.html
+*	Stack Overflow -- I read a TON of different threads on Stack
+*		Overflow to help me fix any problems that I ran into while
+*		developing the calculator. There are probably too many to
+*		list but I've included the most relevant links.
+*		https://stackoverflow.com/questions/24108974/setmnemonic-and-call-a-method-by-pressing-the-key
+*		https://stackoverflow.com/questions/21511511/how-to-arrange-my-gui-in-java
+*		https://stackoverflow.com/questions/5647800/implement-an-interface-and-override-methods-in-java
+*		https://stackoverflow.com/questions/1081486/setting-background-color-for-a-jframe
+*		https://stackoverflow.com/questions/4025780/displaying-%C2%B1-symbol-in-java
+*		https://stackoverflow.com/questions/36014524/how-to-resize-the-window-of-my-gui/36015021
+*		https://stackoverflow.com/questions/14819293/swing-gridbaglayout-auto-resize-fields
+*		https://stackoverflow.com/questions/39949076/is-it-possible-to-use-color-hex-in-jlabel-like-02f7fc
+*		https://stackoverflow.com/questions/26305/how-can-i-play-sound-in-java
+*		https://stackoverflow.com/questions/3422673/how-to-evaluate-a-math-expression-given-in-string-form
+*		https://stackoverflow.com/questions/2605032/is-there-an-eval-function-in-java
+*		https://stackoverflow.com/questions/2335601/reliably-playing-a-short-sound-in-java
+*		https://stackoverflow.com/questions/21683904/how-can-i-open-execute-an-external-file-from-within-java
+*		https://stackoverflow.com/questions/15602104/display-file-in-java-swing-gui
+*	YouTube -- I also watched a couple different YouTube tutorials    *
+*		regarding the implementation of different Swing UI elements.  *
+*		https://www.youtube.com/watch?v=5o3fMLPY7qY                   *
+*		https://www.youtube.com/watch?v=iE8tZ0hn2Ws					  *
+*		https://www.youtube.com/watch?v=6GmW7cw8qMI					  *
+*		https://www.youtube.com/watch?v=g2vDARb7gx8					  *
+*		https://www.youtube.com/watch?v=-IMys4PCkIA					  *
+*		https://www.youtube.com/watch?v=SyZQVJiARTQ				      *
+*		https://www.youtube.com/watch?v=TErboGLHZGA&t=0s			  *
+*                                                                     *
 * COPYRIGHT:                                                          *
 * This program uses the open source MIT license. See LICENSE.txt for  *
 * more information.                                                   *
