@@ -3,6 +3,9 @@
 This is a simple calculator program built using the Java Swing library with a few extra features.
 I made this program for my final project in my CS200 course. I hope that you enjoy it!
 I was limited for time so please feel free to maek any additions/changes that you'd like provided you follow the license guidelines.
+
+### How To Run
+The main way to run the program is by running the **'Calculator.Java'** file via a Java interpreter. Running the **'GUI.Java'** file will also work at least in Eclipse.
  
  ### Program Features
 1. Dark/Light UI Themes.
