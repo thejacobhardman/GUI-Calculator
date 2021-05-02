@@ -739,55 +739,57 @@ public class GUI extends JFrame implements ActionListener {
 	                    							 "Export History",
 	                    							 JOptionPane.PLAIN_MESSAGE);
 				fileName += ".txt";
-				File exportedHistory = new File(fileName);
-				try {
-					FileWriter writer = new FileWriter(fileName);
-					writer.write(this.history.getText());
-					writer.close();
-					if (this.areSoundEffectEnabled == true) {
-            			try {
-        					this.Play_Sound(this.beep);
-        				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-        					e1.printStackTrace();
-        				}
-            		}
-            		JOptionPane.showMessageDialog(this.window,
-                		    (fileName + " saved successfully."),
-                		    "Success",
-                		    JOptionPane.PLAIN_MESSAGE);
-            		if (!Desktop.isDesktopSupported()) {
-        				JOptionPane.showMessageDialog(this.window,
-                    		    "ERROR OPENING SAVED FILE",
-                    		    "Error",
-                    		    JOptionPane.ERROR_MESSAGE);
-        			} else {
-        				Desktop desktop = Desktop.getDesktop();
-        				if (exportedHistory.exists()) {
-        					try {
-        						desktop.open(exportedHistory);
-        					} catch (IOException e1) {
-        						e1.printStackTrace();
-        					}
-        				} else {
-        					JOptionPane.showMessageDialog(this.window,
-        	            		    (fileName + " not found!"),
-        	            		    "Error",
-        	            		    JOptionPane.ERROR_MESSAGE);
-        				}
-        			}
-				} catch (IOException e1) {
-					if (this.areSoundEffectEnabled == true) {
-	        			try {
-	    					this.Play_Sound(this.errorSound);
-	    				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e2) {
-	    					e2.printStackTrace();
-	    				}
-	        			JOptionPane.showMessageDialog(this.window,
-	                		    "Error exporting history.",
-	                		    "Error",
-	                		    JOptionPane.ERROR_MESSAGE);
-	        		}
-					e1.printStackTrace();
+				if (!fileName.equals("null.txt")) {
+					File exportedHistory = new File(fileName);
+					try {
+						FileWriter writer = new FileWriter(fileName);
+						writer.write(this.history.getText());
+						writer.close();
+						if (this.areSoundEffectEnabled == true) {
+	            			try {
+	        					this.Play_Sound(this.beep);
+	        				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+	        					e1.printStackTrace();
+	        				}
+	            		}
+	            		JOptionPane.showMessageDialog(this.window,
+	                		    (fileName + " saved successfully."),
+	                		    "Success",
+	                		    JOptionPane.PLAIN_MESSAGE);
+	            		if (!Desktop.isDesktopSupported()) {
+	        				JOptionPane.showMessageDialog(this.window,
+	                    		    "ERROR OPENING SAVED FILE",
+	                    		    "Error",
+	                    		    JOptionPane.ERROR_MESSAGE);
+	        			} else {
+	        				Desktop desktop = Desktop.getDesktop();
+	        				if (exportedHistory.exists()) {
+	        					try {
+	        						desktop.open(exportedHistory);
+	        					} catch (IOException e1) {
+	        						e1.printStackTrace();
+	        					}
+	        				} else {
+	        					JOptionPane.showMessageDialog(this.window,
+	        	            		    (fileName + " not found!"),
+	        	            		    "Error",
+	        	            		    JOptionPane.ERROR_MESSAGE);
+	        				}
+	        			}
+					} catch (IOException e1) {
+						if (this.areSoundEffectEnabled == true) {
+		        			try {
+		    					this.Play_Sound(this.errorSound);
+		    				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e2) {
+		    					e2.printStackTrace();
+		    				}
+		        			JOptionPane.showMessageDialog(this.window,
+		                		    "Error exporting history.",
+		                		    "Error",
+		                		    JOptionPane.ERROR_MESSAGE);
+		        		}
+						e1.printStackTrace();
+					}
 				}
 			}
 		} else if (e.getSource() == this.darkThemeOption) {
