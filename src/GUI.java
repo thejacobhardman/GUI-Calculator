@@ -89,6 +89,10 @@
 *		https://www.youtube.com/watch?v=-IMys4PCkIA					  *
 *		https://www.youtube.com/watch?v=SyZQVJiARTQ				      *
 *		https://www.youtube.com/watch?v=TErboGLHZGA&t=0s			  *
+*																	  *
+* GITHUB:														      *
+* 	You can view the Github repo for this project here:               *
+* 	https://github.com/thejacobhardman/GUI-Calculator                 *
 *                                                                     *
 * COPYRIGHT:                                                          *
 * This program uses the open source GNU General Public License.       * 

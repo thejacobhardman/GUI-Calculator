@@ -13,6 +13,10 @@
 *                                                                     *
 * ATTRIBUTES: None.                                                   *
 *                                                                     *
+* GITHUB:														      *
+* 	You can view the Github repo for this project here:               *
+* 	https://github.com/thejacobhardman/GUI-Calculator                 *
+*                                                                     *
 * COPYRIGHT:                                                          *
 * This program uses the open source GNU General Public License.       * 
 * See LICENSE.txt for more information.                               *
